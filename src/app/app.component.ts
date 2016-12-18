@@ -30,6 +30,9 @@ export class AppComponent {
           this.service.getUserIsOnline(u.name).subscribe(val => {
             u.isOnline = val;
             this.users[this.users.length] = u;
+            if(this.users.length == userNames.length){
+              this.changeMode(0);
+            }
           });
         });
     }
