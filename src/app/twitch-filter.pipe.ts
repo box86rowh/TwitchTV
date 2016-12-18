@@ -17,9 +17,6 @@ export class TwitchFilterPipe implements PipeTransform {
     return items;
   }
   contains(string1:string, string2:string){
-    if(string1.toLowerCase().indexOf(string2.toLowerCase()) > -1){
-      return true;
-    }
-    return false;
+    return string1.toLowerCase().indexOf(string2.toLowerCase()) > -1;
   }
 }
