@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+.well-danger{
+    background-color: rgb(255, 102, 102);
+}
+.well-safety{
+    background-color: rgb(140, 255, 102);
+}
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}

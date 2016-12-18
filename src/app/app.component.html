@@ -1,3 +1,27 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Twitch.tv User Status</h1>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 15px;">
+<div class="col-md-12">
+  <ul class="nav nav-tabs" role="tablist">
+    <li (click)="changeMode(0)" [ngClass]="{'active': mode == 0 }"><a>Online</a></li>
+    <li (click)="changeMode(1)" [ngClass]="{'active': mode == 1 }"><a>Offline</a></li>
+    <li (click)="changeMode(2)" [ngClass]="{'active': mode == 2 }"><a>All</a></li>
+  </ul>
+  <app-twitch-search (searchChange)="searchChange($event)" style="position: absolute; right: 0; top: -40px;"></app-twitch-search>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let u of users | twitchFilter: { mode : mode, filter: filterText }">
+        <app-twitch-user-view [user]="u">
+        </app-twitch-user-view>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
