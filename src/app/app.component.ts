@@ -9,7 +9,7 @@ import { TwitchUser } from './twitch-user';
 })
 export class AppComponent {
   users: TwitchUser[] = [];
-  mode: number = 0;
+  mode: number = -1;
   filterText:string = '';
 
   constructor(private service: TwitchService) { }
