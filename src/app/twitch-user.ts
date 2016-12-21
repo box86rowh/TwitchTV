@@ -3,6 +3,6 @@ export class TwitchUser {
     displayName:string;
     logo:string;
     url:string;
-    status:"";
+    status:string;
     isOnline:boolean;
 }

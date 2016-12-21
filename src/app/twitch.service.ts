@@ -10,7 +10,7 @@ export class TwitchService {
 
   constructor(private http: Http) { }
 
-  getUsernames():string[]{
+  getUsernames(): string[] {
     return [
       'SL_SC2',
       'OgamingSC2',
@@ -21,25 +21,25 @@ export class TwitchService {
       'RobotCaleb',
       'noobs2ninjas',
       'MedryBW',
-      //'brunofin',
-      //'comster404'
+      'brunofin',
+      'comster404'
     ];
   }
 
-  getUserIsOnline(un:string):Observable<boolean>{
+  getUserIsOnline(un: string): Observable<boolean> {
     return this.http.get('https://api.twitch.tv/kraken/streams?channel=' + un, { headers: this.getHeaders() })
-      .map(r=>{
+      .map(r => {
         let body = r.json();
         return body.streams.length > 0;
       })
       .catch(this.handleError);
   }
 
-  getUser(un: string):Observable<TwitchUser> {
+  getUser(un: string): Observable<TwitchUser> {
     return this.http.get('https://api.twitch.tv/kraken/channels/' + un, { headers: this.getHeaders() })
-      .map(r=>{
+      .map(r => {
         let body = r.json();
-        var user:TwitchUser = {
+        var user: TwitchUser = {
           name: un,
           displayName: body.display_name,
           status: body.status,
@@ -49,8 +49,23 @@ export class TwitchService {
         };
         return user;
       })
-      .catch(this.handleError);
+
+      //method #1 - this won't allow me to return a TwitchUser object
+      .catch((error: any) => {
+        var user: TwitchUser = {
+          name: un,
+          displayName: un,
+          status: 'No active account found for this user!',
+          logo: 'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg',
+          isOnline: false,
+          url: ''
+        };
+        return user;
+      }
+      )
   }
+
+
 
   private getHeaders() {
     let headers = new Headers();
@@ -74,5 +89,4 @@ export class TwitchService {
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
-
 }
