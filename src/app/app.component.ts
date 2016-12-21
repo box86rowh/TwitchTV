@@ -40,7 +40,10 @@ export class AppComponent {
         //method #2 - these blocks appear to only execute once; i is always equal to userNames.length
         //userNames[i] returns undefined
         , (error) => {
-          console.log("an error occurred! Username is " + userNames[i])
+          this.users[this.users.length] = error;
+            if(this.users.length == userNames.length){
+              this.changeMode(0);
+            }
         }
         , () => {
           //console.log("inside the 'final' block. Username is " + userNames[i])
