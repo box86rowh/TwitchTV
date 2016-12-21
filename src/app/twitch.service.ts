@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { TwitchUser } from './twitch-user';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class TwitchService {
@@ -60,7 +61,7 @@ export class TwitchService {
           isOnline: false,
           url: ''
         };
-        return user;
+        return Observable.throw(user);
       }
       )
   }

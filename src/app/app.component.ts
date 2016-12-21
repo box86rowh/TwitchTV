@@ -43,7 +43,7 @@ export class AppComponent {
           console.log("an error occurred! Username is " + userNames[i])
         }
         , () => {
-          console.log("inside the 'final' block. Username is " + userNames[i])
+          //console.log("inside the 'final' block. Username is " + userNames[i])
         }
         );
     }
