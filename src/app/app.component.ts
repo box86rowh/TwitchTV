@@ -33,14 +33,11 @@ export class AppComponent {
             if(this.users.length == userNames.length){
               this.changeMode(0);
             }
-
           });
 
         }
-        //method #2 - these blocks appear to only execute once; i is always equal to userNames.length
-        //userNames[i] returns undefined
         , (error) => {
-          this.users[this.users.length] = error;
+          this.users[this.users.length] = this.buildUserShell(error.userName, error.errMsg);
             if(this.users.length == userNames.length){
               this.changeMode(0);
             }
@@ -50,5 +47,16 @@ export class AppComponent {
         }
         );
     }
+  }
+  buildUserShell(un:string, st:string){
+    var user: TwitchUser = {
+          name: un,
+          displayName: un,
+          status: st,
+          logo: 'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg',
+          isOnline: false,
+          url: ''
+        };
+        return user;
   }
 }

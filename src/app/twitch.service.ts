@@ -51,22 +51,17 @@ export class TwitchService {
         return user;
       })
 
-      //method #1 - this won't allow me to return a TwitchUser object
       .catch((error: any) => {
-        var user: TwitchUser = {
-          name: un,
-          displayName: un,
-          status: 'No active account found for this user!',
-          logo: 'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg',
-          isOnline: false,
-          url: ''
+        let err = error.json();
+        var errObject = {
+          userName: un,
+          errMsg: err.message,
+          errStatus: err.status
         };
-        return Observable.throw(user);
+        return Observable.throw(errObject);
       }
       )
   }
-
-
 
   private getHeaders() {
     let headers = new Headers();
