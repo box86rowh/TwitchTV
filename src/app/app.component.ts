@@ -10,15 +10,15 @@ import { TwitchUser } from './twitch-user';
 export class AppComponent {
   users: TwitchUser[] = [];
   mode: number = -1;
-  filterText:string = '';
+  filterText: string = '';
 
   constructor(private service: TwitchService) { }
 
-  changeMode(num:number){
+  changeMode(num: number) {
     this.mode = num;
   }
 
-  searchChange(ev){
+  searchChange(ev) {
     this.filterText = ev.value;
   }
 
@@ -29,18 +29,13 @@ export class AppComponent {
         .subscribe(u => {
           this.service.getUserIsOnline(u.name).subscribe(val => {
             u.isOnline = val;
-            this.users[this.users.length] = u;
-            if(this.users.length == userNames.length){
-              this.changeMode(0);
-            }
+            this.addUser(u, userNames.length);
           });
 
         }
         , (error) => {
-          this.users[this.users.length] = this.buildUserShell(error.userName, error.errMsg);
-            if(this.users.length == userNames.length){
-              this.changeMode(0);
-            }
+          let u = this.buildUserShell(error.userName, error.errMsg);
+          this.addUser(u, userNames.length);
         }
         , () => {
           //console.log("inside the 'final' block. Username is " + userNames[i])
@@ -48,15 +43,21 @@ export class AppComponent {
         );
     }
   }
-  buildUserShell(un:string, st:string){
+  buildUserShell(un: string, st: string) {
     var user: TwitchUser = {
-          name: un,
-          displayName: un,
-          status: st,
-          logo: 'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg',
-          isOnline: false,
-          url: ''
-        };
-        return user;
+      name: un,
+      displayName: un,
+      status: st,
+      logo: 'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg',
+      isOnline: false,
+      url: ''
+    };
+    return user;
+  }
+  addUser(u: TwitchUser, size: number) {
+    this.users[this.users.length] = u;
+    if (this.users.length == size) {
+      this.changeMode(0);
+    }
   }
 }
