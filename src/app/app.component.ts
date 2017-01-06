@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TwitchService } from './twitch.service';
 import { TwitchUser } from './twitch-user';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { TwitchDatabaseService } from './twitch-database.service';
 
 @Component({
   selector: 'app-root',
