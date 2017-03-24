@@ -13,13 +13,14 @@ import { TwitchManageUsersComponent } from './twitch-manage-users/twitch-manage-
 import { AngularFireModule } from 'angularfire2';
 import { firebaseConfig } from './../environments/firebase.config';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     TwitchUserViewComponent,
     TwitchFilterPipe,
     TwitchSearchComponent,
-    TwitchManageUsersComponent
+    TwitchManageUsersComponent,
   ],
   imports: [
     BrowserModule,
