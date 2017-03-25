@@ -10,6 +10,7 @@ export class TwitchDatabaseService {
 
 
   getUsers(): FirebaseListObservable<any[]> {
+    console.log(this.userNames);
     return this.userNames;
   }
 

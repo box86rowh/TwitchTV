@@ -18,8 +18,8 @@ export class TwitchManageUsersComponent implements OnInit {
     console.log(this.userNames);
   }
 
-  addNewUser(un: string){
-    console.log('userName = ' + un);
+  addNewUser(){
+    console.log('userName = ' + this.newUser);
     var str = '{"userName":"' + this.newUser + '"}';
     console.log(str);
     var u = JSON.parse(str);
