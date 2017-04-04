@@ -5,26 +5,37 @@ import { TwitchUser } from './twitch-user';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { TwitchDatabaseService } from './twitch-database.service';
 
 @Injectable()
 export class TwitchService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private dbService: TwitchDatabaseService) { }
 
-  getUsernames(): string[] {
-    return [
-      'SL_SC2',
-      'OgamingSC2',
-      'cretetion',
-      'freecodecamp',
-      'storbeck',
-      'habathcx',
-      'RobotCaleb',
-      'noobs2ninjas',
-      'MedryBW',
-      'brunofin',
-      'comster404'
-    ];
+  // getUsernames(): string[] {
+  //   return [
+  //     'SL_SC2',
+  //     'OgamingSC2',
+  //     'cretetion',
+  //     'freecodecamp',
+  //     'storbeck',
+  //     'habathcx',
+  //     'RobotCaleb',
+  //     'noobs2ninjas',
+  //     'MedryBW',
+  //     'brunofin',
+  //     'comster404'
+  //   ];
+  // }
+
+  userNamesArray: string[] = [];
+
+  getUserNames() {
+    this.dbService.getUsers().then(userNames => this.userNamesArray = userNames);
+  }
+
+  printUserNames(){
+    this.userNamesArray.forEach(name => console.log(name.toString()));
   }
 
   getUserIsOnline(un: string): Observable<boolean> {

@@ -9,9 +9,19 @@ export class TwitchDatabaseService {
   }
 
 
-  getUsers(): FirebaseListObservable<any[]> {
-    console.log(this.userNames);
-    return this.userNames;
+  // getUsers(): FirebaseListObservable<any[]> {
+  //   console.log(this.userNames);
+  //   return this.userNames;
+  // }
+
+  getUsers(): Promise<string[]>{
+    var userNameArray: string[] = [];
+    this.userNames.subscribe(users => {
+      users.forEach(user => {
+        userNameArray.push(user.userName)
+      });
+    })
+    return Promise.resolve(userNameArray)
   }
 
   addUser(userName: any){
