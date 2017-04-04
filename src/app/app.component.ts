@@ -13,8 +13,9 @@ export class AppComponent {
   users: TwitchUser[] = [];
   mode: number = -1;
   filterText: string = '';
+  userNames: string[] = [];
 
-  constructor(private service: TwitchService) { }
+  constructor(private service: TwitchService, private dbService: TwitchDatabaseService) { }
 
   changeMode(num: number) {
     this.mode = num;
@@ -24,20 +25,27 @@ export class AppComponent {
     this.filterText = ev.value;
   }
 
+  getUserNames(): void {
+    this.dbService.getUsers().then(userNames => this.userNames = userNames);
+  }
+
   ngOnInit() {
-    let userNames: string[] = this.service.getUsernames();
-    for (var i = 0; i < userNames.length; i++) {
-      this.service.getUser(userNames[i])
+    this.getUserNames();
+    //let userNames: string[] = this.service.userNamesArray;
+    //this returns undefined, so nothing in the array
+    console.log(this.userNames[0]);
+    for (var i = 0; i < this.userNames.length; i++) {
+      this.service.getUser(this.userNames[i])
         .subscribe(u => {
           this.service.getUserIsOnline(u.name).subscribe(val => {
             u.isOnline = val;
-            this.addUser(u, userNames.length);
+            this.addUser(u, this.userNames.length);
           });
 
         }
         , (error) => {
           let u = this.buildUserShell(error.userName, error.errMsg);
-          this.addUser(u, userNames.length);
+          this.addUser(u, this.userNames.length);
         }
         , () => {
           //console.log("inside the 'final' block. Username is " + userNames[i])
